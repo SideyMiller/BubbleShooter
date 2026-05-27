@@ -19,7 +19,7 @@ public class ball : MonoBehaviour
     Vector3 forceVect;
     public bool setTarget;
     public float startTime;
-    float duration = 1.0f;
+    //float duration = 1.0f;
     public GameObject mesh;
     Vector2[] meshArray;
     public bool findMesh;
@@ -398,7 +398,7 @@ public class ball : MonoBehaviour
         if( gameObject.GetComponent<Rigidbody2D>() == null ) gameObject.AddComponent<Rigidbody2D>();
         gameObject.GetComponent<Rigidbody2D>().isKinematic = false;
         gameObject.GetComponent<Rigidbody2D>().gravityScale = 1;
-        gameObject.GetComponent<Rigidbody2D>().fixedAngle = false;
+        gameObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None; 
         gameObject.GetComponent<Rigidbody2D>().velocity = gameObject.GetComponent<Rigidbody2D>().velocity + new Vector2( Random.Range( -2, 2 ), 0 );
         gameObject.GetComponent<CircleCollider2D>().enabled = true;
         gameObject.GetComponent<CircleCollider2D>().isTrigger = false;
@@ -409,7 +409,7 @@ public class ball : MonoBehaviour
 
     IEnumerator FlyToTarget()
     {
-        Vector3 targetPos = new Vector3( 2.3f, 6, 0 );
+        Vector3 targetPos = new Vector3(2.06f, 6.90f, 0);
         if(MainScript.Instance.TargetCounter1 < MainScript.Instance.TotalTargets)
             MainScript.Instance.TargetCounter1++;
 
@@ -418,7 +418,7 @@ public class ball : MonoBehaviour
         curveY.AddKey( 0.2f, transform.position.y - 1 );
         float startTime = Time.time;
         Vector3 startPos = transform.position;
-        float speed = 0.2f;
+        //float speed = 0.2f;
         float distCovered = 0;
         while( distCovered < 0.6f )
         {
@@ -792,7 +792,7 @@ public class ball : MonoBehaviour
         ArrayList b = new ArrayList();
         int layerMask = 1 << LayerMask.NameToLayer( "Ball" );
         RaycastHit2D[] fixedBalls = Physics2D.LinecastAll( transform.position + Vector3.left * 10, transform.position + Vector3.right * 10, layerMask );
-        int i = 0;
+        //int i = 0;
         foreach( RaycastHit2D item in fixedBalls )
         {
                 if( !findInArray( b, item.collider.gameObject ) )

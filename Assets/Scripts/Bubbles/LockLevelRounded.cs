@@ -9,7 +9,7 @@ public class LockLevelRounded : MonoBehaviour
     Vector3 ballPos;
     float angle;
     Quaternion newRot;
-    private bool addForce;
+    //private bool addForce;
     // Use this for initialization
     void Start()
     {
@@ -24,7 +24,7 @@ public class LockLevelRounded : MonoBehaviour
         angle = Vector2.Angle(_dir - _ballPos, _ballPos - transform.position) / 4f;
         if (transform.position.x < _ballPos.x) angle *= -1;
         newRot = transform.rotation * Quaternion.AngleAxis(angle, Vector3.back);
-        addForce = true;
+        //addForce = true;
         SoundBase.GetInstance().GetComponent<AudioSource>().PlayOneShot(SoundBase.GetInstance().kreakWheel);
     }
 

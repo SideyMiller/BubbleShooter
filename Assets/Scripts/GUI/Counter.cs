@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine.UI;
 using InitScriptName;
+using UnityEngine.SceneManagement;
 public class Counter : MonoBehaviour
 {
     Text label;
@@ -80,17 +81,18 @@ public class Counter : MonoBehaviour
 
     string GetTarget()
     {
-        if (Application.loadedLevelName == "Map")
+        if (SceneManager.GetActiveScene().name == "Map")
         {
-            if (InitScript.Instance.currentTarget == Target.Top) return "消除泡泡收获阳光";
-            else if (InitScript.Instance.currentTarget == Target.Chicken) return "营救萌小鸡";
+            if (InitScript.Instance.currentTarget == Target.Top) return "消除泡泡收获太阳";
+            else if (InitScript.Instance.currentTarget == Target.Chicken) return "收获SKR泡泡";
 
         }
         else
         {
+            if (LevelData.mode == ModeGame.Vertical) return "消除泡泡收获太阳";
+            else if (LevelData.mode == ModeGame.Rounded) return "收获SKR泡泡";
             return "游戏结束！";
-            if (LevelData.mode == ModeGame.Vertical) return "消除泡泡收获阳光";
-            else if (LevelData.mode == ModeGame.Rounded) return "营救萌小鸡";
+            
 
         }
         return "";

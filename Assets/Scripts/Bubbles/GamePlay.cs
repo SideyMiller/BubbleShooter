@@ -75,21 +75,23 @@ public class GamePlay : MonoBehaviour
 
     void Update()
     {
-        if (Application.platform == RuntimePlatform.WindowsEditor || Application.platform == RuntimePlatform.OSXEditor)
-        {
-            if (Input.GetKey(KeyCode.W)) GamePlay.Instance.GameStatus = GameState.Win;
-            if (Input.GetKey(KeyCode.L)) { LevelData.LimitAmount = 0; GamePlay.Instance.GameStatus = GameState.GameOver; }
-            if (Input.GetKey(KeyCode.D)) MainScript.Instance.destroyAllballs();
-            if (Input.GetKey(KeyCode.M)) LevelData.LimitAmount = 1;
+        //if (Application.platform == RuntimePlatform.WindowsEditor || Application.platform == RuntimePlatform.OSXEditor)
+        //{
+        //    if (Input.GetKey(KeyCode.W)) GamePlay.Instance.GameStatus = GameState.Win;
+        //    if (Input.GetKey(KeyCode.L)) { LevelData.LimitAmount = 0; GamePlay.Instance.GameStatus = GameState.GameOver; }
+        //    if (Input.GetKey(KeyCode.D)) MainScript.Instance.destroyAllballs();
+        //    if (Input.GetKey(KeyCode.M)) LevelData.LimitAmount = 1;
 
-        }
+        //}
     }
 
     // Update is called once per frame
-    IEnumerator WinAction()
+    IEnumerator WinAction() 
     {
         winStarted = true;
         InitScript.Instance.AddLife(1);
+        // 【关键第1步】赶紧在步数被扣光之前，把现在的剩余步数记下来！
+        int myLeftSteps = (int)LevelData.LimitAmount;
         GameObject.Find("Canvas").transform.Find("LevelCleared").gameObject.SetActive(true);
         //       yield return new WaitForSeconds( 1f );
         //if( GameObject.Find( "Music" ) != null)
@@ -146,6 +148,17 @@ public class GamePlay : MonoBehaviour
             yield return new WaitForSeconds(0.1f);
         }
         SoundBase.GetInstance().GetComponent<AudioSource>().PlayOneShot(SoundBase.GetInstance().aplauds);
+
+        MainScript.Instance.stars = 1;
+
+        // 剩 3 步以上给 2 星 (数值你自己定)
+        if (myLeftSteps >= 3) MainScript.Instance.stars = 2;
+
+        // 剩 8 步以上给 3 星 (这就是给土豪留的口子)
+        if (myLeftSteps >= 8) MainScript.Instance.stars = 3;
+        // 不管是第几次过关，只要赢了，就给10个金币（Gems）
+        InitScript.Instance.AddGems(10);
+
         if (PlayerPrefs.GetInt(string.Format("Level.{0:000}.StarsCount", MainScript.Instance.currentLevel), 0) < MainScript.Instance.stars)
             PlayerPrefs.SetInt(string.Format("Level.{0:000}.StarsCount", MainScript.Instance.currentLevel), MainScript.Instance.stars);
 
@@ -201,9 +214,10 @@ public class GamePlay : MonoBehaviour
         if (LevelData.LimitAmount <= 0)
         {
             SoundBase.GetInstance().GetComponent<AudioSource>().PlayOneShot(SoundBase.GetInstance().gameOver);
-            GameObject.Find("Canvas").transform.Find("MenuGameOver").gameObject.SetActive(true);
+            GameObject.Find( "Canvas" ).transform.Find( "MenuPreGameOver" ).gameObject.SetActive( true );
         }
-        // GameObject.Find( "Canvas" ).transform.Find( "MenuPreGameOver" ).gameObject.SetActive( true );
+
+        //GameObject.Find("Canvas").transform.Find("MenuGameOver").gameObject.SetActive(true);
         yield return new WaitForSeconds(0.1f);
 
     }

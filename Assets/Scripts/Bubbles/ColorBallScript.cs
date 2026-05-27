@@ -7,7 +7,9 @@ public enum BallColor
     green,
     red,
     violet,
-    yellow,
+    yellow, 
+    orange,
+    brown, 
     random,
     chicken
 }
@@ -30,22 +32,23 @@ public class ColorBallScript : MonoBehaviour
             if (item.name == "ball_" + color)
             {
                 GetComponent<SpriteRenderer>().sprite = item;
-                SetSettings(color);
+                //SetSettings(color);
                 gameObject.tag = "" + color;
             }
         }
+        
     }
 
-    private void SetSettings(BallColor color)
-    {
-        if (color == BallColor.chicken)
-        {
-            if (LevelData.mode == ModeGame.Rounded)
-            {
+    //private void SetSettings(BallColor color)
+    //{
+    //    if (color == BallColor.chicken)
+    //    {
+    //        if (LevelData.mode == ModeGame.Rounded)
+    //        {
 
-            }
-        }
-    }
+    //        }
+    //    }
+    //}
 
     public void SetColor(int color)
     {

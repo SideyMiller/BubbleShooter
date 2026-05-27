@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-
+using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 using System.Collections;
 using System;
@@ -23,8 +23,8 @@ namespace InitScriptName
     public class InitScript : MonoBehaviour
     {
         public static InitScript Instance;
-        private int _levelNumber = 1;
-        private int _starsCount = 1;
+        //private int _levelNumber = 1;
+        //private int _starsCount = 1;
         private bool _isShow;
         public static int openLevel;
 
@@ -49,6 +49,7 @@ namespace InitScriptName
         public GameObject EMAIL;
         public GameObject MessagesBox;
 
+       
 
         public static bool FirstTime;
         public static int Lifes;
@@ -77,7 +78,7 @@ namespace InitScriptName
         public void Awake()
         {
             Instance = this;
-            if (Application.loadedLevelName == "Map")
+            if (SceneManager.GetActiveScene().name == "Map")
             {
                 if (GameObject.Find("Canvas").transform.Find("MenuPlay").gameObject.activeSelf) GameObject.Find("Canvas").transform.Find("MenuPlay").gameObject.SetActive(false);
 
@@ -105,7 +106,7 @@ namespace InitScriptName
                 PlayerPrefs.SetInt("Sound", 1);
                 PlayerPrefs.Save();
             }
-
+            
             GameObject.Find("Music").GetComponent<AudioSource>().volume = PlayerPrefs.GetInt("Music");
             SoundBase.GetInstance().GetComponent<AudioSource>().volume = PlayerPrefs.GetInt("Sound");
 
@@ -221,7 +222,13 @@ namespace InitScriptName
             FireBallBoost = PlayerPrefs.GetInt("" + BoostType.FireBallBoost);
 
         }
-
+        // 供外部（比如支付成功后）调用的接口
+        public static bool GetVipStatus()
+        {
+            // 优先从本地读取，确保准确（默认为0/false）
+            return PlayerPrefs.GetInt("IsVipUser", 0) == 1;
+        }
+        
 
         #region 关卡选择相关函数
         public int LoadLevelStarsCount(int level)
@@ -273,7 +280,7 @@ namespace InitScriptName
         {
             PlayerPrefs.SetFloat("RestLifeTimer", RestLifeTimer);
             PlayerPrefs.SetInt("Lifes", Lifes);
-            if (Application.loadedLevel != 2)
+            if (SceneManager.GetActiveScene().buildIndex != 2)
                 PlayerPrefs.SetString("DateOfExit", DateTime.Now.ToString());
             PlayerPrefs.SetInt("Gems", Gems);
             PlayerPrefs.Save();

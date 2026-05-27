@@ -33,8 +33,16 @@ public class SoundBase : MonoBehaviour
     // Use this for initialization
     void Awake()
     {
-        DontDestroyOnLoad(gameObject);
+        if (_instance != null && _instance != this)
+        {
+            
+            Destroy(gameObject);
+            return;
+        }
+
         _instance = this;
+        DontDestroyOnLoad(gameObject);
+        GetComponent<AudioSource>().volume = PlayerPrefs.GetInt("Sound");
     }
 
     public static SoundBase GetInstance()

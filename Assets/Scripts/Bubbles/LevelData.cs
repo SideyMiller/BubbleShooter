@@ -152,7 +152,7 @@ public class LevelData
         colorsDict.Clear();
         key = 0;
 
-        BallColor exceptedColor = BallColor.violet;
+        //BallColor exceptedColor = BallColor.violet;
 
         for (int i = 0; i < creatorBall.rows; i++)
         {
@@ -185,14 +185,20 @@ public class LevelData
             List<BallColor> randomList = new List<BallColor>();
             randomList.Add(BallColor.blue);
             randomList.Add(BallColor.green);
-            if( mode != ModeGame.Rounded ) 
+
+            if( mode != ModeGame.Rounded )
+            {
                 randomList.Add(BallColor.violet);
+                randomList.Add(BallColor.orange);
+                randomList.Add(BallColor.brown);
+            }
+                   
             for (int i = 0; i < colors-2; i++)
             {
                 BallColor randCol = BallColor.yellow;
                 while (colorsDict.ContainsValue(randCol))
                 {
-                    randCol = randomList[UnityEngine.Random.RandomRange(0, randomList.Count)];
+                    randCol = randomList[UnityEngine.Random.Range(0, randomList.Count)];
                 }
                 colorsDict.Add(2 + i, randCol);
                 
@@ -239,8 +245,8 @@ public class LevelData
     {
         string[] lines = mapText.Split(new string[] { "\n" }, StringSplitOptions.RemoveEmptyEntries);
         LevelData.colorsDict.Clear();
-        int mapLine = 0;
-        int key = 0;
+        //int mapLine = 0;
+        //int key = 0;
         foreach (string line in lines)
         {
             if (line.StartsWith("MODE "))

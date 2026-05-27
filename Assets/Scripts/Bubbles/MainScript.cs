@@ -28,7 +28,7 @@ public class MainScript : MonoBehaviour
     Vector2 worldPos;
     Vector2 startPos;
     float startTime;
-    float duration = 1.0f;
+    //float duration = 1.0f;
     bool setTarget;
     float mTouchOffsetX;
     float mTouchOffsetY;
@@ -164,7 +164,7 @@ public class MainScript : MonoBehaviour
     public GameObject[] locksBoosts;
 
     public GameObject arrows;
-    int stageTemp;
+    //int stageTemp;
     public GameObject newBall2;
     private int maxCols;
     private int maxRows;
@@ -281,7 +281,7 @@ public class MainScript : MonoBehaviour
         //		if(DisplayMetricsAndroid.WidthPixels>700){
         //			hd = true;
         //		}
-        stageTemp = 1;
+        //stageTemp = 1;
         RandomizeWaitTime();
         score = 0;
         if (PlayerPrefs.GetInt("noSound") == 1) noSound = true;
@@ -399,31 +399,31 @@ public class MainScript : MonoBehaviour
         }
         ProgressBarScript.Instance.UpdateDisplay((float)score * 100f / ((float)LevelData.star1 / ((LevelData.star1 * 100f / LevelData.star3)) * 100f) / 100f);
 
-        if (score >= LevelData.star1 && stars <= 0)
-        {
-            stars = 1;
-        }
-        if (score >= LevelData.star2 && stars <= 1)
-        {
-            stars = 2;
-        }
-        if (score >= LevelData.star3 && stars <= 2)
-        {
-            stars = 3;
-        }
+        //if (score >= LevelData.star1 && stars <= 0)
+        //{
+        //    stars = 1;
+        //}
+        //if (score >= LevelData.star2 && stars <= 1)
+        //{
+        //    stars = 2;
+        //}
+        //if (score >= LevelData.star3 && stars <= 2)
+        //{
+        //    stars = 3;
+        //}
 
-        if (score >= LevelData.star1)
-        {
-            starsObject[0].SetActive(true);
-        }
-        if (score >= LevelData.star2)
-        {
-            starsObject[1].SetActive(true);
-        }
-        if (score >= LevelData.star3)
-        {
-            starsObject[2].SetActive(true);
-        }
+        //if (score >= LevelData.star1)
+        //{
+        //    starsObject[0].SetActive(true);
+        //}
+        //if (score >= LevelData.star2)
+        //{
+        //    starsObject[1].SetActive(true);
+        //}
+        //if (score >= LevelData.star3)
+        //{
+        //    starsObject[2].SetActive(true);
+        //}
 
     }
 
@@ -706,14 +706,14 @@ public class MainScript : MonoBehaviour
 
             GameObject chicken = GameObject.FindGameObjectWithTag("chicken");
             chicken.GetComponent<SpriteRenderer>().sortingLayerName = "UI layer";
-            Vector3 targetPos = new Vector3(2.3f, 6, 0);
+            Vector3 targetPos = new Vector3(2.06f, 6.90f, 0);
             MainScript.Instance.TargetCounter++;
             AnimationCurve curveX = new AnimationCurve(new Keyframe(0, chicken.transform.position.x), new Keyframe(0.5f, targetPos.x));
             AnimationCurve curveY = new AnimationCurve(new Keyframe(0, chicken.transform.position.y), new Keyframe(0.5f, targetPos.y));
             curveY.AddKey(0.2f, chicken.transform.position.y - 1);
             float startTime = Time.time;
             Vector3 startPos = chicken.transform.position;
-            float speed = 0.2f;
+            //float speed = 0.2f;
             float distCovered = 0;
             while (distCovered < 0.6f)
             {
@@ -774,7 +774,7 @@ public class MainScript : MonoBehaviour
         Camera.main.GetComponent<MainScript>().bounceCounter = 0;
         int scoreCounter = 0;
         int rate = 0;
-        int soundPool = 0;
+        //int soundPool = 0;
 
         foreach (GameObject obj in b)
         {

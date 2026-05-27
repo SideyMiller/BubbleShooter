@@ -131,6 +131,7 @@ public class creatorBall : MonoBehaviour
                 for (int i = 0; i < st.Length; i++)
                 {
                     int value =  int.Parse(st[i][0].ToString());
+                    
                     if (!LevelData.colorsDict.ContainsValue((BallColor)value) && value > 0 && value < (int)BallColor.random)
                     {
                         LevelData.colorsDict.Add(key, (BallColor)value);
@@ -154,14 +155,19 @@ public class creatorBall : MonoBehaviour
             List<BallColor> randomList = new List<BallColor>();
             randomList.Add(BallColor.blue);
             randomList.Add(BallColor.green);
-            //if (LevelData.mode != ModeGame.Rounded)
+            if (LevelData.mode != ModeGame.Rounded)
+            {
                 randomList.Add(BallColor.violet);
+                randomList.Add(BallColor.orange);
+                randomList.Add(BallColor.brown);
+            }
+                
             for (int i = 0; i < LevelData.colors - 2; i++)
             {
                 BallColor randCol = BallColor.yellow;
                 while (LevelData.colorsDict.ContainsValue(randCol))
                 {
-                    randCol = randomList[UnityEngine.Random.RandomRange(0, randomList.Count)];
+                    randCol = randomList[UnityEngine.Random.Range(0, randomList.Count)];
                 }
                 LevelData.colorsDict.Add(2 + i, randCol);
 
@@ -174,7 +180,7 @@ public class creatorBall : MonoBehaviour
     public void LoadMap( int[] pMap )
     {
         map = pMap;
-        int key = -1;
+        //int key = -1;
         int roww = 0;
         for( int i = 0; i < rows; i++ )
         {

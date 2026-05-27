@@ -44,7 +44,8 @@ public class DrawLine : MonoBehaviour
     {
         if (MainScript.Instance.boxCatapult.GetComponent<Grid>().Busy != null)
         {
-            col = MainScript.Instance.boxCatapult.GetComponent<Grid>().Busy.GetComponent<SpriteRenderer>().sprite.texture.GetPixelBilinear(0.6f, 0.6f);
+            col = Color.white;
+            //col = MainScript.Instance.boxCatapult.GetComponent<Grid>().Busy.GetComponent<SpriteRenderer>().sprite.texture.GetPixelBilinear(0.6f, 0.6f);
             col.a = 1;
         }
 
